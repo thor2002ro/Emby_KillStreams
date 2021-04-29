@@ -53,8 +53,8 @@ namespace KillStreams
                         $"Height {mediaSourceItem.VideoStream.Height} Width  {mediaSourceItem.VideoStream.Width}");
                     var is4K = mediaSourceItem.VideoStream.Height <= 2160 &&
                                mediaSourceItem.VideoStream.Width <= 4096 &&
-                               mediaSourceItem.VideoStream.Height > 1080 &&
-                               mediaSourceItem.VideoStream.Width > 1920;
+                               mediaSourceItem.VideoStream.Height > 640 &&
+                               mediaSourceItem.VideoStream.Width > 480;
 
                     if (!is4K) is4K = mediaSourceItem.VideoStream.DisplayTitle.ToLower().Contains("4k");
 
@@ -76,12 +76,12 @@ namespace KillStreams
 
                         var text = "Stream stopped because of transcoding.  Reason(s): " + string.Join(", ",
                                        sessionManagerSession.TranscodingInfo.TranscodeReasons) +
-                                   "Try adjusting your video internet quality settings to a higher value and/or changing audio sources depending on your reason.";
+                                   "Try adjusting your video internet quality settings in your emby app settings, to the highest value allowed in the emby app settings. More Info in our Website/Discord.";
 
                         await SessionManager.SendMessageCommand(null, sessionManagerSession.Id,
                             new MessageCommand
                             {
-                                Header = "4K Stream Video Transcoding Disabled",
+                                Header = "Stream Video Transcoding Disabled",
                                 Text = prettyText(text)
                                 //TimeoutMs = 10000
                             },
@@ -111,7 +111,7 @@ namespace KillStreams
                         await SessionManager.SendMessageCommand(null, sessionManagerSession.Id,
                             new MessageCommand
                             {
-                                Header = "4K Stream Audio Transcoding Disabled",
+                                Header = "Stream Audio Transcoding Disabled",
                                 Text = prettyText(text)
                                 //TimeoutMs = 10000
                             },
@@ -134,7 +134,7 @@ namespace KillStreams
                             await SessionManager.SendMessageCommand(null, sessionManagerSession.Id,
                                 new MessageCommand
                                 {
-                                    Header = "4K Stream Audio Transcoding Enabled",
+                                    Header = "Stream Audio Transcoding Enabled",
                                     Text = prettyText(text)
                                     //TimeoutMs = 10000
                                 },
