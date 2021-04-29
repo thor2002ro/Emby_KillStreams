@@ -117,7 +117,7 @@ namespace KillStreams
                             },
                             new CancellationToken());
                     }
-
+              }
                 if (sessionManagerSession.TranscodingInfo != null && sessionManagerSession.PlayState != null &&
                     sessionManagerSession.PlayState.PlayMethod == PlayMethod.Transcode &&
                     !sessionManagerSession.TranscodingInfo.IsVideoDirect &&
