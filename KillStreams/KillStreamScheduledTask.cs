@@ -76,12 +76,12 @@ namespace KillStreams
 
                         var text = "Stream stopped because of transcoding.  Reason(s): " + string.Join(", ",
                                        sessionManagerSession.TranscodingInfo.TranscodeReasons) +
-                                   "Try adjusting your video internet quality settings in your emby app settings, to the highest value allowed in the emby app settings. More Info in our Website/Discord.";
+                                   "Try adjusting your video internet quality settings in your emby app go to ( settings OR profile picture -> PlayBack (In FR: Lecture, OR in PT: Reprodução/Leitura ) -> Internet Quality OR Stream Birate Maximum ) and set it to the highest value allowed on your device. More Info in our Website/Discord.";
 
                         await SessionManager.SendMessageCommand(null, sessionManagerSession.Id,
                             new MessageCommand
                             {
-                                Header = "Stream Video Transcoding Disabled",
+                                Header = "Stream Video Transcoding Not Enabled in our servers.",
                                 Text = prettyText(text)
                                 //TimeoutMs = 10000
                             },
@@ -197,7 +197,7 @@ namespace KillStreams
 
             if (input.Contains("ContainerBitrateExceedsLimit"))
                 input = input.Replace("ContainerBitrateExceedsLimit",
-                    "The file is in a higher quality than your selected play back quality.  ");
+                    "The file is in a higher quality than your selected in playback quality on your user account settings.  ");
 
             if (input.Contains("AudioBitrateNotSupported"))
                 input = input.Replace("AudioBitrateNotSupported", "Audio bitrate is not supported.  ");
