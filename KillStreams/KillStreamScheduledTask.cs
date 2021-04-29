@@ -118,30 +118,6 @@ namespace KillStreams
                             new CancellationToken());
                     }
 
-                    if (is4K && Plugin.Instance.PluginConfiguration.Allow4KAudioTranscode &&
-                        sessionManagerSession.TranscodingInfo != null &&
-                        !sessionManagerSession.TranscodingInfo.IsAudioDirect)
-                    {
-                        Logger.Info("Inside Allow 4k audio transcode");
-                        Logger.Info(
-                            $"Device Id {sessionManagerSession.DeviceId} - UserName {sessionManagerSession.UserName} - ID {sessionManagerSession.Id}");
-                        var text = "Transcoding.  Reason(s): " + string.Join(", ",
-                                       sessionManagerSession.TranscodingInfo.TranscodeReasons) +
-                                   "Try changing the audio to match your setup and save the CPU.  However you can continue to play with a audio transcode.";
-
-                        if (sessionManagerSession.PlayState.PositionTicks <=
-                            sessionManagerSession.NowPlayingItem.RunTimeTicks * .05)
-                            await SessionManager.SendMessageCommand(null, sessionManagerSession.Id,
-                                new MessageCommand
-                                {
-                                    Header = "Stream Audio Transcoding Enabled",
-                                    Text = prettyText(text)
-                                    //TimeoutMs = 10000
-                                },
-                                new CancellationToken());
-                    }
-                }
-
                 if (sessionManagerSession.TranscodingInfo != null && sessionManagerSession.PlayState != null &&
                     sessionManagerSession.PlayState.PlayMethod == PlayMethod.Transcode &&
                     !sessionManagerSession.TranscodingInfo.IsVideoDirect &&
