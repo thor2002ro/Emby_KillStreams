@@ -165,6 +165,31 @@ namespace KillStreams
                     },
                     new CancellationToken());
             }
+
+            var killLongPlayingStreams = PlayingSessionsHelper.GetSessionsToKill();
+            Logger.Info($"Count of Long Playing streams {killLongPlayingStreams.Count()}");
+
+            foreach (var PlayingStream in killLongPlayingStreams)
+            {
+                await SessionManager.SendPlaystateCommand(null, PlayingStream.SessionId,
+                    new PlaystateRequest
+                    {
+                        Command = PlaystateCommand.Stop,
+                        ControllingUserId = UserManager.Users.FirstOrDefault(user => user.Policy.IsAdministrator)?.Id.ToString()
+                    }, new CancellationToken());
+
+                var text = "Stream killed due to beeing playing for more than " +
+                           Plugin.Instance.PluginConfiguration.PlayingDurationH + "H.";
+
+                await SessionManager.SendMessageCommand(null, PlayingStream.SessionId,
+                    new MessageCommand
+                    {
+                        Header = "Long Playing Stream Killed",
+                        Text = prettyText(text)
+                        //TimeoutMs = 10000
+                    },
+                    new CancellationToken());
+            }
         }
 
         public IEnumerable<TaskTriggerInfo> GetDefaultTriggers()

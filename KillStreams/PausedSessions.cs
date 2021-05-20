@@ -18,19 +18,17 @@ namespace KillStreams
 
         public static void AddSessionToList(string sessionId)
         {
-            var duration = Plugin.Instance.PluginConfiguration.PausedDurationMin == 0
-                ? 5
-                : Plugin.Instance.PluginConfiguration.PausedDurationMin;
-            
+            var duration = Plugin.Instance.PluginConfiguration.PausedDurationMin == 0 ? 5 : Plugin.Instance.PluginConfiguration.PausedDurationMin;
+
             PausedSessions ??= new List<PausedSession>();
 
-            if(!PausedSessions.Select(x => x.SessionId).Contains(sessionId))
+            if (!PausedSessions.Select(x => x.SessionId).Contains(sessionId))
             {
-                PausedSessions.Add(new PausedSession{SessionId = sessionId, PausedAtTimeUtc = DateTime.UtcNow, KillAtTimeUtc = DateTime.UtcNow.AddMinutes(duration)});
+                PausedSessions.Add(new PausedSession { SessionId = sessionId, PausedAtTimeUtc = DateTime.UtcNow, KillAtTimeUtc = DateTime.UtcNow.AddMinutes(duration) });
             }
         }
-        
-        public static void RemoteSessionFromList(string sessionId)
+
+        public static void RemoveSessionFromList(string sessionId)
         {
             PausedSessions ??= new List<PausedSession>();
 

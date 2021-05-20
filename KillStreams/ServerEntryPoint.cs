@@ -44,7 +44,8 @@ namespace KillStreams
                     PausedSessionsHelper.AddSessionToList(e.Session.Id);
                     break;
                 case false:
-                    PausedSessionsHelper.RemoteSessionFromList(e.Session.Id);
+                    PausedSessionsHelper.RemoveSessionFromList(e.Session.Id);
+                    PlayingSessionsHelper.AddSessionToList(e.Session.Id);
                     break;
             }
         }
@@ -54,7 +55,8 @@ namespace KillStreams
             if (e.IsPaused) return;
 
             //The item was in a paused state when the user stopped it, clean up the paused session list.
-            PausedSessionsHelper.RemoteSessionFromList(e.Session.Id);
+            PausedSessionsHelper.RemoveSessionFromList(e.Session.Id);
+            PlayingSessionsHelper.RemoveSessionFromList(e.Session.Id);
         }
     }
 }
