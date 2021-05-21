@@ -16,6 +16,7 @@
                 <div id="Allow4KVideoTranscodeDiv"></div>
                 <div id="NagTranscodeDiv"></div>
                 <div id="PausedDurationMinDiv"></div>
+                <div id="PlayingDurationHDiv"></div>
                 <div>
                     <button is="emby-button" type="submit" class="raised button-submit block"><span>${ButtonSave}</span></button>
                 </div>
@@ -118,7 +119,7 @@
                             '                        <input is="emby-input" id="PlayingDurationH" value="' + value + '" label="Playing Duration Before Kill" />' +
                             '                </div>'
 
-                        $('#PlayingDurationH').html(html);
+                        $('#PlayingDurationHDiv').html(html);
 
                         $(":checkbox").click(function(){
                             if($(this).is(':checked'))
@@ -148,6 +149,7 @@
                     config.Allow4KAudioTranscode = $('#Allow4KAudioTranscode', page).val();
                     config.NagTranscode = $('#NagTranscode', page).val();
                     config.PausedDurationMin = $('#PausedDurationMin', page).val();
+                    config.PlayingDurationH = $('#PlayingDurationH', page).val();
 
                     ApiClient.updatePluginConfiguration(ConfigurationPage.pluginUniqueId, config).then(function (result) {
                         Dashboard.processPluginConfigurationUpdateResult(result);
